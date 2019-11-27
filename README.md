@@ -1,0 +1,2 @@
+# UnityPlayFabRanking
+PlayFabのランキング部分を簡易的に利用するためのもの
