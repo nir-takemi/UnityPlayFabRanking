@@ -13,9 +13,11 @@ Unity上で、PlayFabのランキング部分を簡易的に利用するため�
 2. [クイックスタート](https://docs.microsoft.com/ja-jp/gaming/playfab/sdks/unity3d/quickstart)によりプロジェクトのセットアップを実施
 
 ## ランキングをPlayFab上で作成
-1. https://developer.playfab.com/ja-JP/r/t/プロジェクトID/leaderboards/newを開く
+1. https://developer.playfab.com/ja-JP/r/t/プロジェクトID/leaderboards/new を開く
 2. 任意の値で作成
 ![image](https://user-images.githubusercontent.com/10418442/69739528-34a37a80-117b-11ea-859d-0a1972d25e43.png)
+3. 設定画面のAPI機能 https://developer.playfab.com/ja-JP/r/t/プロジェクトID/settings/api-features にて、「クライアントにプレイヤー統計情報のポストを許可する」にチェックをする
+![image](https://user-images.githubusercontent.com/10418442/69741897-30795c00-117f-11ea-98aa-eeebcca4ac73.png)
 
 ## unitypackageのDL
 以下から最新のものをダウンロードしてください
