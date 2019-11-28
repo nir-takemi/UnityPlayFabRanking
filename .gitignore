@@ -37,3 +37,7 @@ sysinfo.txt
 
 .DS_Store
 *.log
+PlayFabEditorExtensions/
+PlayFabEditorExtensions.meta
+PlayFabSdk/
+PlayFabSdk.meta
