@@ -6,6 +6,9 @@ Unity上で、PlayFabのランキング部分を簡易的に利用するため�
 - Android
 - WebGL
 
+# 使用前提SDK（後の準備の手順の中で導入します）
+- [PlayFab/UnityEditorExtensions](https://github.com/PlayFab/UnityEditorExtensions)
+- [PlayFab/UnitySDK](https://github.com/PlayFab/UnitySDK)
 
 # 準備
 ## PlayFab公式のドキュメントに沿って使用可能にしてください
@@ -65,6 +68,10 @@ rankingView.gameObject.SetActive(true);
 
 6. 表示例
 ![image](https://user-images.githubusercontent.com/10418442/69740957-8e0ca900-117d-11ea-8a7e-f91d2068157d.png)
+
+# ライセンス
+- 本パッケージについては[LICENSE](https://github.com/nir-takemi/UnityPlayFabRanking/blob/master/LICENSE)を参照ください
+- PlayFabのSDKを利用しているので、PlayFab関連に関してはPlayFab側のライセンスに準拠してください
 
 # その他
 - デフォルトの設定だとプレイヤー名が重複がされるとエラーになる
