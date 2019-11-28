@@ -4,11 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/ylib/UnityPlayFabRanking/Sample/Scenes/SampleRankingScene.unity
-    guid: 10770bb31fc6145579afbe95938b607d
-  - enabled: 0
-    path: Assets/ylib/UnityPlayFabRanking/Sample/Scenes/SampleRankingScene2.unity
-    guid: ad8864957012e45f8b2d9cef59d266c8
+  m_Scenes: []
   m_configObjects: {}
