@@ -84,6 +84,10 @@ namespace ylib.Services
             {
                 rankingView.UpdateScore(3000);
             }
+
+            PrintGetPlayerData("TestRankingMax");
+            PrintGetPlayerData("TestRankingMin");
+            PrintGetPlayerData("TestRankingNew");
         }
 
         public void OnEdit()
@@ -107,6 +111,15 @@ namespace ylib.Services
 
             goNameEdit.SetActive(false);
         }
+
+        public void PrintGetPlayerData(string rankingName)
+        {
+            ylib.Services.PlayFabRanking.GetRankPlayer(rankingName, (rankingData) =>
+            {
+                string text = string.Format("{0}_{1}位 {2} {3}_{4}", rankingName, rankingData.rank, rankingData.displayName, rankingData.score, (PlayFabRanking.IsValidData(rankingData) ? "有効" : "無効"));
+
+                Debug.Log(text);
+            });
+        }
     }
 }
-

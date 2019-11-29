@@ -32,14 +32,28 @@ namespace ylib.Services
         }
 
         /// <summary>
-        /// スコア送信
+        /// ランキングデータが有効なものか？
+        /// </summary>
+        public static bool IsValidData(RankingData rankingData)
+        {
+            return (0 < rankingData.score);
+        }
+
+        /// <summary>
+        /// スコア送信（scoreが0を指定したら送信しない）
         /// </summary>
         /// <param name="rankingName">ランキング名</param>
         /// <param name="score">スコア</param>
         /// <param name="onSuccess">送信成功後に実行するアクション</param>
         /// <param name="onFailed">送信失敗後に実行するアクション</param>
-        public static void SendPlayScore(string rankingName, int score, System.Action onSuccess = null, System.Action<PlayFabError> onFailed = null)
+        /// <returns>スコアが0ならfalseを返す</returns>
+        public static bool SendPlayScore(string rankingName, int score, System.Action onSuccess = null, System.Action<PlayFabError> onFailed = null)
         {
+            if (score == 0)
+            {
+                return false;
+            }
+
             var statisticUpdate = new StatisticUpdate
             {
                 StatisticName = rankingName,
@@ -68,13 +82,15 @@ namespace ylib.Services
                 // error
                 (error) =>
                 {
-                    Debug.Log($"{error.Error}");
+                    Debug.LogError($"{error.Error}");
 
                     if (onFailed != null)
                     {
                         onFailed(error);
                     }
                 });
+
+            return true;
         }
 
         /// <summary>
@@ -118,7 +134,55 @@ namespace ylib.Services
                 // error
                 (error) =>
                 {
-                    Debug.Log($"{error.Error}");
+                    Debug.LogError($"{error.Error}");
+
+                    if (onFailed != null)
+                    {
+                        onFailed(error);
+                    }
+                });
+        }
+
+        /// <summary>
+        /// ランキング一覧の取得
+        /// </summary>
+        /// <param name="rankingName">ランキング名</param>
+        /// <param name="afterGetAction">取得後に実行するアクション</param>
+        /// <param name="startRank">取得開始rank(default=1)</param>
+        /// <param name="rankingSize">ランク数(default=10/max=100)</param>
+        /// <param name="onFailed">送信失敗後に実行するアクション</param>
+        public static void GetRankPlayer(string rankingName, System.Action<RankingData> afterGetAction, int startRank = 1, int rankingSize = 10, System.Action<PlayFabError> onFailed = null)
+        {
+            var request = new GetLeaderboardAroundPlayerRequest
+            {
+                StatisticName = rankingName,
+                PlayFabId = PlayFabPlayerData.Instance.PlayerID,
+                MaxResultsCount = 1
+            };
+
+            PlayFabClientAPI.GetLeaderboardAroundPlayer(request,
+                (result) =>
+                {
+                    Debug.Log("PlayFabRanking.GetRankPlayer() success!");
+
+                    RankingData rankingData = new RankingData();
+
+                    if (0 < result.Leaderboard.Count)
+                    {
+                        var item = result.Leaderboard[0];
+
+                        rankingData.rank = item.Position + 1;
+                        rankingData.displayName = (item.DisplayName != null) ? item.DisplayName : PlayFabPlayerData.cEmptyDisplayName;
+                        rankingData.playFabId = item.PlayFabId;
+                        rankingData.score = item.StatValue;
+                    }
+
+                    afterGetAction(rankingData);
+                },
+                // error
+                (error) =>
+                {
+                    Debug.LogError($"{error.Error}");
 
                     if (onFailed != null)
                     {
