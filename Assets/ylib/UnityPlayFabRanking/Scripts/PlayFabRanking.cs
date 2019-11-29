@@ -147,11 +147,9 @@ namespace ylib.Services
         /// ランキング一覧の取得
         /// </summary>
         /// <param name="rankingName">ランキング名</param>
-        /// <param name="afterGetAction">取得後に実行するアクション</param>
-        /// <param name="startRank">取得開始rank(default=1)</param>
-        /// <param name="rankingSize">ランク数(default=10/max=100)</param>
-        /// <param name="onFailed">送信失敗後に実行するアクション</param>
-        public static void GetRankPlayer(string rankingName, System.Action<RankingData> afterGetAction, int startRank = 1, int rankingSize = 10, System.Action<PlayFabError> onFailed = null)
+        /// <param name="onSuccess">成功後に実行するアクション</param>
+        /// <param name="onFailed">失敗後に実行するアクション</param>
+        public static void GetRankPlayer(string rankingName, System.Action<RankingData> onSuccess, System.Action<PlayFabError> onFailed = null)
         {
             var request = new GetLeaderboardAroundPlayerRequest
             {
@@ -177,7 +175,7 @@ namespace ylib.Services
                         rankingData.score = item.StatValue;
                     }
 
-                    afterGetAction(rankingData);
+                    onSuccess(rankingData);
                 },
                 // error
                 (error) =>
