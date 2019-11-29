@@ -45,6 +45,10 @@ namespace ylib.Services.UI
 
         private List<RankingViewData> rankingDataList;
 
+        public void SetRankingName(string rankingName)
+        {
+            this.rankingName = rankingName;
+        }
 
         protected override void OnInitialize()
         {
